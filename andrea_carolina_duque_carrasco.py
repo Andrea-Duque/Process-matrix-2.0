@@ -86,5 +86,3 @@ def is_all_numbers(matrix):
             break
     return val
 
-matrix = [[2,3,4], [4,7,9], [5,1,8],[6,4,2]]
-print(process_matrix(matrix))
