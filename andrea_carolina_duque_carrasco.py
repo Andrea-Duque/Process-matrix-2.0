@@ -1,6 +1,14 @@
 from functools import reduce
 
 def process_matrix(matrix):
+    if matrix == []: 
+        return []
+    elif is_numerical_matrix(matrix): 
+        return _process_matrix(matrix)
+    else:
+        raise ValueError('Only works on numerical matrices')
+
+def _process_matrix(matrix):
     processed_matrix = []
    
     for i, column in enumerate(matrix):
@@ -54,10 +62,29 @@ def get_neighbor_values(indices, elements):
     return values
 
 def get_average(values):
-
     return reduce(lambda a, b : a + b, values, 0) / len(values)
 
-matrix = [[2,3,5,1], [4,7,9,3], [5,1,8,7], [6,4,2,3]]
 
+def is_numerical_matrix(matrix):
+    return is_list_of_lists(matrix) and is_same_length(matrix) and is_all_numbers(matrix)
+
+def is_same_length(matrix):
+    it = iter(matrix)
+    the_len = len(next(it))
+    return all(len(l) == the_len for l in it)
+        
+def is_list_of_lists(matrix):
+    return all(isinstance(element, list) for element in matrix)        
+
+def is_all_numbers(matrix):
+    val = None
+    for lst in matrix:
+        if all(type(element) in (int, float) for element in lst):
+            val = True
+        else:
+            val = False
+            break
+    return val
+
+matrix = [[2,3,4], [4,7,9], [5,1,8],[6,4,2]]
 print(process_matrix(matrix))
-
